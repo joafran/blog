@@ -2,9 +2,12 @@
 import DropdownMenu from "./DropdownMenu";
 import HeaderLink from "./HeaderLink.astro";
 import { IoLogoGithub } from "react-icons/io5/index.js";
+import ThemeToggle from "./ThemeToggle";
 ---
 
-<header class="w-full bg-neutral-50 fixed z-20 p-3">
+<header
+  class="w-full bg-neutral-50 dark:bg-zinc-900 transition-colors fixed z-20 p-3"
+>
   <nav class="max-w-2xl flex items-center justify-between h-[50px] mx-auto">
     <div>
       <HeaderLink class="text-sm md:text-base" href="/">
@@ -19,13 +22,16 @@ import { IoLogoGithub } from "react-icons/io5/index.js";
         Source
       </HeaderLink>
     </div>
-    <DropdownMenu
-      client:visible
-      items={[
-        { path: "/", text: "Link 1" },
-        { path: "/", text: "Link 2" },
-      ]}
-      title="Tags"
-    />
+    <div class="flex items-center gap-3">
+      <ThemeToggle client:visible />
+      <DropdownMenu
+        client:visible
+        items={[
+          { path: "/", text: "Link 1" },
+          { path: "/", text: "Link 2" },
+        ]}
+        title="Tags"
+      />
+    </div>
   </nav>
 </header>
