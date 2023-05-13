@@ -1,8 +1,12 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 const today = new Date();
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <footer class="text-zinc-500 p-3 text-center font-medium">
   &copy; {today.getFullYear()}
-  <a href="/">Joaquin Franco</a>. All rights reserved.
+  <a href={`/${lang}/`}>Joaquin Franco</a>. {t("footer.text")}.
 </footer>

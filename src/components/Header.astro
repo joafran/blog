@@ -4,9 +4,10 @@ import HeaderLink from "./HeaderLink.astro";
 import { IoLogoGithub } from "react-icons/io5/index.js";
 import ThemeToggle from "./ThemeToggle";
 import { languages } from "../i18n/ui";
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const { pathname } = Astro.url;
 
 const langs = Object.entries(languages).map(([locale, label]) => ({
@@ -20,7 +21,7 @@ const langs = Object.entries(languages).map(([locale, label]) => ({
 >
   <nav class="max-w-2xl flex items-center justify-between h-[50px] mx-auto">
     <div>
-      <HeaderLink class="text-sm md:text-base" href="/">
+      <HeaderLink class="text-sm md:text-base" href={`/${lang}`}>
         🧉 Joaquin Franco
       </HeaderLink>
       <HeaderLink
@@ -29,7 +30,7 @@ const langs = Object.entries(languages).map(([locale, label]) => ({
         target="_blank"
       >
         <IoLogoGithub />
-        Source
+        {t("nav.source")}
       </HeaderLink>
     </div>
     <div class="flex items-center gap-3">
