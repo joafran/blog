@@ -5,14 +5,21 @@ import { IoLogoGithub } from "react-icons/io5/index.js";
 import ThemeToggle from "./ThemeToggle";
 import { languages } from "../i18n/ui";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { POST_TAGS } from "../consts";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { pathname } = Astro.url;
+const localeTags = t("post.tags") as { [key: string]: string };
 
 const langs = Object.entries(languages).map(([locale, label]) => ({
   path: `${pathname.replace(`/${lang}/`, `/${locale}/`)}`,
   text: label,
+}));
+
+const tags = Object.keys(POST_TAGS).map((t) => ({
+  path: `/${lang}/categories/${t.toLowerCase()}`,
+  text: localeTags[t.toLowerCase()] || t,
 }));
 ---
 
@@ -36,14 +43,7 @@ const langs = Object.entries(languages).map(([locale, label]) => ({
     <div class="flex items-center gap-3">
       <ThemeToggle client:visible />
       <DropdownMenu client:visible langIcon items={langs} />
-      <DropdownMenu
-        client:visible
-        items={[
-          { path: "/", text: "Link 1" },
-          { path: "/", text: "Link 2" },
-        ]}
-        title="Tags"
-      />
+      <DropdownMenu client:visible items={tags} title="Tags" />
     </div>
   </nav>
 </header>
