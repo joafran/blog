@@ -1,0 +1,19 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("posts");
+  const paths = pages.map((page) => {
+    const { slug, id } = page;
+    const lang = id.split("/")[0];
+    return { params: { lang, slug }, props: page };
+  });
+
+  return paths;
+}
+
+const page = Astro.props;
+---
+
+<BlogPost page={page as CollectionEntry<"posts">} />

@@ -1,14 +1,27 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 
-const { title, heroImage } = Astro.props;
+interface Props {
+  page: CollectionEntry<"posts">;
+}
+
+const { page } = Astro.props;
+const { title, description, createdAt, updatedAt, heroImage } = page.data;
+const { Content } = await page.render();
 ---
 
 <BaseLayout>
   <article>
     {heroImage && <img width={720} height={360} src={heroImage} alt="" />}
     <h1 class="title">{title}</h1>
+    <h1 class="title">{description}</h1>
+    {
+      updatedAt && (
+        <div class="last-updated-on">Last updated on {updatedAt}</div>
+      )
+    }
     <hr />
-    <slot />
   </article>
+  <Content />
 </BaseLayout>
