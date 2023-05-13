@@ -1,0 +1,42 @@
+---
+import Card from "../../components/Card.astro";
+import { languages } from "../../i18n/ui";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const posts = await Astro.glob("../../content/posts/*.md");
+---
+
+<BaseLayout>
+  <div class="max-h-[50vh] flex items-center">
+    <div class="md:max-w-md">
+      <h3 class="text-inherit text-xl">Hello! 👋</h3>
+      <p class="text-lg">
+        Welcome to my blog! Here you will find a variety of topics based on my
+        opinion and personal experience.<br />
+        From tips on learning to challenges that have come my way in my career as
+        a Software Engineer.
+      </p>
+    </div>
+    <div class="hidden md:block aspect-square ml-auto">
+      <img src="/home-hero.svg" />
+    </div>
+  </div>
+  <section>
+    <p class="uppercase font-semibold mb-4">Latest</p>
+    {
+      posts.map((post) => (
+        <Card
+          description={post.frontmatter.description}
+          href={post.frontmatter.href}
+          img={post.frontmatter.heroImage}
+          tags={post.frontmatter.tags}
+          title={post.frontmatter.title}
+        />
+      ))
+    }
+  </section>
+</BaseLayout>
