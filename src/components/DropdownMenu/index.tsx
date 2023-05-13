@@ -1,18 +1,19 @@
 import { Menu, Transition } from "@headlessui/react";
-import { IoMenu } from "react-icons/io5/index.js";
+import { IoLanguage, IoMenu } from "react-icons/io5/index.js";
 import { Fragment } from "react";
 import MenuItem from "./MenuItem";
 
 interface Props {
   items: { path: string; text: string }[];
+  langIcon?: boolean;
   title?: string;
 }
 
-const DropdownMenu: React.FC<Props> = ({ title, items }) => {
+const DropdownMenu: React.FC<Props> = ({ title, items, langIcon }) => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="align-middle text-xl hover:bg-slate-800 hover:text-white rounded-md p-2 ring-1 ring-slate-500">
-        <IoMenu />
+        {langIcon ? <IoLanguage /> : <IoMenu />}
       </Menu.Button>
 
       <Transition

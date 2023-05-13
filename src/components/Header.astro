@@ -3,6 +3,16 @@ import DropdownMenu from "./DropdownMenu";
 import HeaderLink from "./HeaderLink.astro";
 import { IoLogoGithub } from "react-icons/io5/index.js";
 import ThemeToggle from "./ThemeToggle";
+import { languages } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { pathname } = Astro.url;
+
+const langs = Object.entries(languages).map(([locale, label]) => ({
+  path: `${pathname.replace(`/${lang}/`, `/${locale}/`)}`,
+  text: label,
+}));
 ---
 
 <header
@@ -24,6 +34,7 @@ import ThemeToggle from "./ThemeToggle";
     </div>
     <div class="flex items-center gap-3">
       <ThemeToggle client:visible />
+      <DropdownMenu client:visible langIcon items={langs} />
       <DropdownMenu
         client:visible
         items={[
