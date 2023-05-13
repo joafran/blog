@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import Card from "../../components/Card.astro";
 import { languages } from "../../i18n/ui";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -7,7 +8,8 @@ export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({ params: { lang } }));
 }
 
-const posts = await Astro.glob("../../content/posts/*.md");
+const { lang } = Astro.params;
+const posts = await getCollection("posts", ({ id }) => id.startsWith(lang!));
 ---
 
 <BaseLayout>
@@ -30,11 +32,11 @@ const posts = await Astro.glob("../../content/posts/*.md");
     {
       posts.map((post) => (
         <Card
-          description={post.frontmatter.description}
-          href={post.frontmatter.href}
-          img={post.frontmatter.heroImage}
-          tags={post.frontmatter.tags}
-          title={post.frontmatter.title}
+          href={`/${lang}/posts/${post.slug}/`}
+          description={post.data.description}
+          img={post.data.heroImage}
+          tags={post.data.tags}
+          title={post.data.title}
         />
       ))
     }
