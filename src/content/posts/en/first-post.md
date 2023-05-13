@@ -3,6 +3,9 @@ title: "First post"
 description: "Lorem ipsum dolor sit amet"
 createdAt: "Jul 08 2022"
 updatedAt: "Jul 08 2022"
+slug: "my-advices"
+tags:
+  - Experience
 heroImage: "/placeholder-hero.jpg"
 ---
 
