@@ -2,9 +2,12 @@
 import BaseHead from "../components/BaseHead.astro";
 import Body from "../components/Body.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { getLangFromUrl } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<html lang="en">
+<html lang={lang}>
   <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   <Body>
     <slot />

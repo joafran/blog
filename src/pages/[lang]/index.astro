@@ -3,32 +3,36 @@ import { getCollection } from "astro:content";
 import Card from "../../components/Card.astro";
 import { languages } from "../../i18n/ui";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { LanguageType, useTranslations } from "../../i18n/utils";
 
 export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({ params: { lang } }));
 }
 
 const { lang } = Astro.params;
+const t = useTranslations(lang as LanguageType);
 const posts = await getCollection("posts", ({ id }) => id.startsWith(lang!));
 ---
 
 <BaseLayout>
-  <div class="max-h-[50vh] flex items-center">
+  <div class="flex items-center justify-between mb-4">
     <div class="md:max-w-md">
-      <h3 class="text-inherit text-xl">Hello! 👋</h3>
+      <h3 class="text-inherit text-xl mb-1">
+        {t("home.hello")}
+        <span class="font-semibold">Joaquin</span>
+      </h3>
       <p class="text-lg">
-        Welcome to my blog! Here you will find a variety of topics based on my
-        opinion and personal experience.<br />
-        From tips on learning to challenges that have come my way in my career as
-        a Software Engineer.
+        {t("home.welcome")}
+        <br />
+        {t("home.discover")}
       </p>
     </div>
-    <div class="hidden md:block aspect-square ml-auto">
+    <div class="hidden md:block aspect-square max-w-sm">
       <img src="/home-hero.svg" />
     </div>
   </div>
   <section>
-    <p class="uppercase font-semibold mb-4">Latest</p>
+    <p class="uppercase font-semibold mb-4">{t("home.latest")}</p>
     {
       posts.map((post) => (
         <Card
