@@ -1,11 +1,14 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 interface Props {
   page: CollectionEntry<"posts">;
 }
-
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const { page } = Astro.props;
 const { title, description, createdAt, updatedAt, heroImage } = page.data;
 const { Content } = await page.render();
@@ -13,15 +16,19 @@ const { Content } = await page.render();
 
 <BaseLayout>
   <article>
-    {heroImage && <img width={720} height={360} src={heroImage} alt="" />}
-    <h1 class="title">{title}</h1>
-    <h1 class="title">{description}</h1>
-    {
-      updatedAt && (
-        <div class="last-updated-on">Last updated on {updatedAt}</div>
-      )
-    }
-    <hr />
+    <a
+      class="inline-flex items-center gap-2 text-lg mb-4 text-inherit"
+      href={`/${lang}/`}
+    >
+      <IoArrowBackOutline />
+      {t("post.see-all")}
+    </a>
+    <div class="mb-4">
+      <img class="w-full rounded-xl object-cover" src={heroImage} alt="" />
+    </div>
+    <h1 class="text-inherit text-2xl font-bold">{title}</h1>
+    <h1 class="text-inherit text-lg">{description}</h1>
+    <hr class="my-5" />
+    <Content />
   </article>
-  <Content />
 </BaseLayout>
