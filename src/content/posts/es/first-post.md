@@ -1,8 +1,7 @@
 ---
 title: "Primer post"
 description: "Lorem ipsum dolor sit amet"
-createdAt: "Jul 08 2022"
-updatedAt: "Jul 08 2022"
+createdAt: "May 14 2023"
 slug: "my-advices"
 tags:
   - Experience

@@ -1,30 +1,40 @@
 ---
+import FormattedDate from "./FormattedDate.astro";
+import Tag from "./Tag";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const localeTags = t("post.tags") as { [key: string]: string };
+
 interface Props {
   href: string;
   title: string;
   description: string;
   img: string;
+  createdAt: string;
+  updatedAt?: string;
   tags: string[];
 }
 
-const { href, title, description, img } = Astro.props;
+const { href, title, description, img, createdAt, tags } = Astro.props;
 ---
 
 <div class="mb-4">
   <a
-    class="block rounded space-y-4 lg:grid lg:grid-cols-3 lg:items-start lg:gap-6 lg:space-y-0 transition-all duration-150 hover:shadow-lg hover:scale-105 p-4 mb-2"
+    class="block dark:bg-zinc-700 dark:bg-opacity-10 rounded space-y-4 lg:grid lg:grid-cols-3 lg:items-start lg:gap-6 lg:space-y-0 transition-all duration-150 hover:shadow-lg hover:scale-105 p-4 mb-2"
     href={href}
   >
     {img && <img class="object-cover rounded-lg" src={img} alt="" />}
     <div>
-      <h2
-        class="text-inherit text-lg leading-6 group-hover:text-skin-primary my-2"
-      >
+      {tags.map((t: string) => <Tag text={localeTags[t.toLowerCase()] || t} />)}
+      <h2 class="text-inherit text-lg leading-6 my-2">
         {title}
       </h2>
-      <p class="mt-1 text-sm font-normal text-skin-base leading-5">
+      <p class="mb-5 text-sm font-normal leading-5">
         {description}
       </p>
+      <FormattedDate date={new Date(createdAt)} />
     </div>
   </a>
   <hr class="border-[1.5px]" />

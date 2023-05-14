@@ -28,7 +28,7 @@ const posts = await getCollection("posts", ({ id }) => id.startsWith(lang!));
       </p>
     </div>
     <div class="hidden md:block aspect-square max-w-sm">
-      <img src="/home-hero.svg" />
+      <img src="/home-hero.svg" class="w-full h-full object-cover" />
     </div>
   </div>
   <section>
@@ -39,6 +39,7 @@ const posts = await getCollection("posts", ({ id }) => id.startsWith(lang!));
           href={`/${lang}/posts/${post.slug}/`}
           description={post.data.description}
           img={post.data.heroImage}
+          createdAt={post.data.createdAt}
           tags={post.data.tags}
           title={post.data.title}
         />

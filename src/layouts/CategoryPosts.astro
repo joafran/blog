@@ -22,13 +22,13 @@ const posts = await getCollection(
     <h4 class="text-xl uppercase font-bold mb-5 leading-6 text-inherit">
       {localeTags[category.toLowerCase()]}
     </h4>
-    <hr />
     {
       posts.map((post) => (
         <Card
           href={`/${lang}/posts/${post.slug}/`}
           title={post.data.title}
           description={post.data.description}
+          createdAt={post.data.createdAt}
           tags={post.data.tags}
           img={post.data.heroImage}
         />
