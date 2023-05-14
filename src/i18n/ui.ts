@@ -19,7 +19,8 @@ export const ui = {
       experience: "Experience",
       advice: "Advice",
     },
-
+    "404.nothing": "Oops... seems that there's nothing here :(",
+    "404.goto": "Go to",
     "footer.text": "All rights reserved",
   },
   es: {
@@ -35,7 +36,8 @@ export const ui = {
       experience: "Experiencia",
       advice: "Consejo",
     },
-
+    "404.nothing": "Oops... parece que aqui no hay nada :(",
+    "404.goto": "Ir a",
     "footer.text": "Todos los derechos reservados",
   },
 } as const;
